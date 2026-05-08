@@ -1,0 +1,13 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  datasource:
+    url: jdbc:mysql://${MAIN_MYSQL_HOST:localhost}:${MAIN_DB_PORT:3306}/${MAIN_DB_NAME:address}?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&tinyInt1isBit=false&rewriteBatchedStatements=true
+    username: ${MAIN_MYSQL_USERNAME:root}
+    password: ${MAIN_MYSQL_PASSWORD:1234}
+
+  jpa:
+    hibernate:
+      ddl-auto: update

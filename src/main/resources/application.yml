@@ -1,0 +1,20 @@
+spring:
+  profiles:
+    active: ${PROFILE}
+
+  datasource:
+    url: jdbc:mysql://${MAIN_MYSQL_HOST}:${MAIN_DB_PORT}/${MAIN_DB_NAME}?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&tinyInt1isBit=false&rewriteBatchedStatements=true
+    username: ${MAIN_MYSQL_USERNAME}
+    password: ${MAIN_MYSQL_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+        default_batch_fetch_size: 1000
