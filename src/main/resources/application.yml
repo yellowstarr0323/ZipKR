@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: ${PROFILE}
+    active: ${PROFILE:local}
 
   datasource:
     url: jdbc:mysql://${MAIN_MYSQL_HOST}:${MAIN_DB_PORT}/${MAIN_DB_NAME}?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&tinyInt1isBit=false&rewriteBatchedStatements=true
