@@ -1,11 +1,17 @@
 package com.example.zipkr.domain.roadname.entity
 
-import com.example.zipkr.domain.common.BaseUUIDEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.Id
+import jakarta.persistence.Table
+import java.util.UUID
 
 @Entity
+@Table(name = "road_name_entity")
 class RoadNameEntity (
+
+    @Id
+    val id: UUID,
 
     @Column(columnDefinition = "VARCHAR(40)")
     val cityProvinceName: String,
@@ -17,7 +23,7 @@ class RoadNameEntity (
     val eupMyeonDong: String,
 
     @Column(columnDefinition = "VARCHAR(40)")
-    val Li: String? = null,
+    val li: String? = null,
 
     @Column(columnDefinition = "INT")
     val mainJibunNumber: Int,
@@ -26,7 +32,7 @@ class RoadNameEntity (
     val subJibunNumber: Int,
 
     @Column(columnDefinition = "VARCHAR(80)")
-    val roadName: String,
+    val roadName: String? = null,
 
     @Column(columnDefinition = "INT")
     val mainBuildingNumber: Int? = null,
@@ -34,7 +40,7 @@ class RoadNameEntity (
     @Column(columnDefinition = "INT")
     val subBuildingNumber: Int? = null,
 
-    @Column(columnDefinition = "VARCHAR(400)")
+    @Column(columnDefinition = "VARCHAR(400)",)
     val korFullText: String,
 
     @Column(columnDefinition = "VARCHAR(400)")
@@ -43,11 +49,11 @@ class RoadNameEntity (
     @Column(columnDefinition = "INT")
     val postalCode: Int,
 
-    @Column(columnDefinition = "VARCHAR(40)")
+    @Column(columnDefinition = "VARCHAR(400)")
     val buildingName: String?,
 
     @Column(columnDefinition = "VARCHAR(26)", nullable = false)
     val managementNumber: String,
 
 
-) : BaseUUIDEntity()
+)
