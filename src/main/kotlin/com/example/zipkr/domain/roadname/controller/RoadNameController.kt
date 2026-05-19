@@ -14,7 +14,10 @@ class RoadNameController (
 ) {
 
     @GetMapping("/postal-code")
-    fun searchPostalCode(@RequestParam(name = "keyword") keyword:String):List<SearchPostalCodeResponse> {
-        return roadNameService.searchPostalCode(keyword)
+    fun searchPostalCode(
+        @RequestParam(name = "keyword") keyword: String,
+        @RequestParam(name = "page", defaultValue = "0") page: Int
+    ): List<SearchPostalCodeResponse> {
+        return roadNameService.searchPostalCode(keyword, page)
     }
 }

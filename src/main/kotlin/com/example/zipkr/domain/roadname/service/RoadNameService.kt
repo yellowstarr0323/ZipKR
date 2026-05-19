@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service
 
 interface RoadNameService {
 
-    fun searchPostalCode(keyword:String): List<SearchPostalCodeResponse>
+    fun searchPostalCode(keyword: String, page: Int): List<SearchPostalCodeResponse>
 }
