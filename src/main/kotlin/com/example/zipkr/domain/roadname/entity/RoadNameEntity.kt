@@ -55,5 +55,4 @@ class RoadNameEntity (
     @Column(columnDefinition = "VARCHAR(26)", nullable = false)
     val managementNumber: String,
 
-
 )
