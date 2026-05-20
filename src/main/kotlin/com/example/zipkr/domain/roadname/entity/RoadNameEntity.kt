@@ -3,12 +3,16 @@ package com.example.zipkr.domain.roadname.entity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
+import jakarta.persistence.Index
 import jakarta.persistence.Table
 import java.util.UUID
 
 @Entity
-@Table(name = "road_name_entity")
-class RoadNameEntity (
+@Table(
+    name = "road_name_entity",
+    indexes = [Index(name = "idx_management_number", columnList = "management_number")]
+)
+class RoadNameEntity(
 
     @Id
     val id: UUID,
