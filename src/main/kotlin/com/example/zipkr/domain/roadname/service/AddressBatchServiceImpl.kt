@@ -64,7 +64,7 @@ class AddressBatchServiceImpl(
 
         if (upsertBatch.isNotEmpty()) upsert(upsertBatch)
         if (deleteBatch.isNotEmpty()) jpaRepository.deleteAllByManagementNumberIn(deleteBatch)
-
+        File(filePath).delete()
     }
 
     private fun toEntity(fields: List<String>): RoadNameEntity {

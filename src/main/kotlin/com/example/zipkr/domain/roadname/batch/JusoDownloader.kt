@@ -56,7 +56,7 @@ class JusoDownloader(
                     outFile.absolutePath
                 }
                 .toList()
-        }
+        }.also { File(zipPath).delete() }
     }
 
     private fun buildDownloadUrl(date: LocalDate, fileName: String): String {
