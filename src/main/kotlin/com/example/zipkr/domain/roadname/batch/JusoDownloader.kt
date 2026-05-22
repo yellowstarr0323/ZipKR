@@ -40,22 +40,18 @@ class JusoDownloader(
         return savePath
     }
 
-    fun unzip(zipPath: String): List<String> {
+    fun unzip(zipPath: String): String {
         val destDir = zipPath.substringBeforeLast("/")
 
         return ZipFile(zipPath).use { zip ->
-            zip.entries().asSequence()
-                .filter { it.name.contains("MST") }
-                .map { entry ->
-                    val outFile = File("$destDir/${entry.name}")
-                    zip.getInputStream(entry).use { input ->
-                        outFile.outputStream().use { output ->
-                            input.copyTo(output)
-                        }
-                    }
-                    outFile.absolutePath
+            val entry = zip.entries().asSequence().first { it.name.contains("MST") }
+            val outFile = File("$destDir/${entry.name}")
+            zip.getInputStream(entry).use { input ->
+                outFile.outputStream().use { output ->
+                    input.copyTo(output)
                 }
-                .toList()
+            }
+            outFile.absolutePath
         }.also { File(zipPath).delete() }
     }
 

@@ -19,8 +19,8 @@ class AddressScheduler(
 
         try {
             val zipPath = jusoDownloader.download(yesterday)
-            val filePaths = jusoDownloader.unzip(zipPath)
-            filePaths.forEach(addressBatchService::processFile)
+            val filePath = jusoDownloader.unzip(zipPath)
+            addressBatchService.processFile(filePath)
         } catch (e: Exception) {
             e.printStackTrace()
         }
