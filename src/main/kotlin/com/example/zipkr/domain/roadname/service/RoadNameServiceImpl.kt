@@ -25,7 +25,13 @@ class RoadNameServiceImpl(
     }
 
     private fun toFullTextKeyword(keyword: String): String =
-        if (keyword.contains(" ")) "\"$keyword\"" else "$keyword*"
+        keyword
+            .replace(Regex("([가-힣])([0-9])"), "$1 $2")
+            .replace(Regex("([0-9])([가-힣])"), "$1 $2")
+            .trim()
+            .split(Regex("\\s+"))
+            .filter { it.length >= 2 }
+            .joinToString(" ") { "+$it" }
 
     private fun containsInitialConsonant(keyword: String): Boolean =
         keyword.any { it in 'ㄱ'..'ㅎ' }
