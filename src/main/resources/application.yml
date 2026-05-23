@@ -24,4 +24,4 @@ spring:
 
 juso:
   api:
-    base-url: ${JUSO_API_BASE_URL}
+    base-url: ${JUSO_API_BASE_URL:https://business.juso.go.kr/api/jst/download}
