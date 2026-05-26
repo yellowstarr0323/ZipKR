@@ -105,6 +105,9 @@ class AddressBatchServiceImpl(
         val mainJibun     = fields[COL_MAIN_JIBUN].trim()
         val subJibun      = fields[COL_SUB_JIBUN].trim()
 
+        val buildingName = fields.getOrNull(COL_BUILDING_NAME_DETAIL)?.trim()?.ifBlank { null }
+            ?: fields.getOrNull(COL_BUILDING_NAME)?.trim()?.ifBlank { null }
+
         return buildList {
             add(cityProvince)
             if (countyDistrict.isNotBlank()) add(countyDistrict)
@@ -116,6 +119,7 @@ class AddressBatchServiceImpl(
             } else {
                 add(if (subJibun != "0" && subJibun.isNotBlank()) "$mainJibun-$subJibun" else mainJibun)
             }
+            if (buildingName != null) add(buildingName)
         }.joinToString(" ")
     }
 
