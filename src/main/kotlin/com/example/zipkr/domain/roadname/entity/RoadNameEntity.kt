@@ -2,9 +2,14 @@ package com.example.zipkr.domain.roadname.entity
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Index
+import jakarta.persistence.PostLoad
 import jakarta.persistence.Table
+import jakarta.persistence.Transient
+import org.springframework.data.domain.Persistable
 import java.util.UUID
 
 @Entity
@@ -14,8 +19,10 @@ import java.util.UUID
 )
 class RoadNameEntity(
 
+    // JVM에서 메서드를 자동생성해서 _id로 이름을 지었음
     @Id
-    val id: UUID,
+    @Column(name = "id")
+    private val _id: UUID,
 
     @Column(columnDefinition = "VARCHAR(40)")
     val cityProvinceName: String,
@@ -44,7 +51,7 @@ class RoadNameEntity(
     @Column(columnDefinition = "INT")
     val subBuildingNumber: Int? = null,
 
-    @Column(columnDefinition = "VARCHAR(400)",)
+    @Column(columnDefinition = "VARCHAR(400)")
     val korFullText: String,
 
     @Column(columnDefinition = "VARCHAR(400)")
@@ -59,4 +66,17 @@ class RoadNameEntity(
     @Column(columnDefinition = "VARCHAR(26)", nullable = false)
     val managementNumber: String,
 
-)
+) : Persistable<UUID> {
+
+    @Transient
+    private var _isNew: Boolean = true
+
+    override fun getId(): UUID = _id
+
+    override fun isNew(): Boolean = _isNew
+
+    @PostLoad
+    fun markNotNew() {
+        _isNew = false
+    }
+}

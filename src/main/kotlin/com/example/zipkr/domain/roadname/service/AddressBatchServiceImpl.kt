@@ -2,6 +2,7 @@ package com.example.zipkr.domain.roadname.service
 
 import com.example.zipkr.domain.roadname.entity.RoadNameEntity
 import com.example.zipkr.domain.roadname.repository.RoadNameJpaRepository
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.io.File
 import java.nio.charset.Charset
@@ -11,6 +12,8 @@ import java.util.UUID
 class AddressBatchServiceImpl(
     private val jpaRepository: RoadNameJpaRepository
 ) : AddressBatchService {
+
+    private val log = LoggerFactory.getLogger(AddressBatchServiceImpl::class.java)
 
     companion object {
         private const val BATCH_SIZE = 1000
@@ -38,6 +41,7 @@ class AddressBatchServiceImpl(
     }
 
     override fun processFile(filePath: String) {
+        val start = System.currentTimeMillis()
         val upsertBatch = mutableListOf<RoadNameEntity>()
         val deleteBatch = mutableListOf<String>()
 
@@ -65,12 +69,13 @@ class AddressBatchServiceImpl(
         if (upsertBatch.isNotEmpty()) upsert(upsertBatch)
         if (deleteBatch.isNotEmpty()) jpaRepository.deleteAllByManagementNumberIn(deleteBatch)
         File(filePath).delete()
+        log.info("파일 처리 완료 [{}]: {}초", filePath, (System.currentTimeMillis() - start) / 1000)
     }
 
     private fun toEntity(fields: List<String>): RoadNameEntity {
         val korFullText = buildKorFullText(fields)
         return RoadNameEntity(
-            id                 = UUID.randomUUID(),
+            _id                = UUID.randomUUID(),
             managementNumber   = fields[COL_MANAGEMENT_NUMBER].trim(),
             cityProvinceName   = fields[COL_CITY_PROVINCE].trim(),
             countyDistricts    = fields[COL_COUNTY_DISTRICT].trim(),
